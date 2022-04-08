@@ -1,9 +1,11 @@
 .SearchResults {
-    display: flex;
-    flex-wrap: wrap;
-    & > * {
-        min-width: 20rem;
-        flex-basis: 33%;
-        flex-grow: 1;
+    &Grid {
+        display: flex;
+        flex-wrap: wrap;
+        & > * {
+            min-width: 22rem;
+            flex-basis: 33%;
+            flex-grow: 1;
+        }
     }
 }

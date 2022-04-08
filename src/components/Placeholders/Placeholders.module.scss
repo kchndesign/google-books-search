@@ -20,21 +20,21 @@
 
     &Title {
         @extend .Placeholder;
-        width: 60%;
+        width: max(60%, 10rem);
         margin: 1rem auto 1rem 0;
         height: 2rem;
     }
 
     &Text {
         @extend .Placeholder;
-        width: 80%;
+        width: max(80%, 15rem);
         margin: 0.75rem auto 1rem 0;
         height: 1rem;
     }
 
     &Image {
         @extend .Placeholder;
-        width: 100%;
+        width: max(60%, 10rem);
         height: 20rem;
         margin-bottom: 1rem;
     }

@@ -1,13 +1,15 @@
-import './App.css';
+import Styles from './App.module.scss';
 import BookBox from './components/BookBox/';
 import { useState } from 'react';
 import SearchResults from './components/SearchResults';
 import BookImage from './components/BookImage';
+import Search from './components/Search';
 
 function App() {
     const [search, setSearch] = useState('');
     const [bookList, setBookList] = useState([]);
 
+    // function for searching with a string for query parameter
     const fetchBookList = async (query) => {
         const string = query.split(' ').join('+');
         const response = await fetch(
@@ -15,14 +17,24 @@ function App() {
         );
         const data = await response.json();
         return data.items.map((item) => {
-            return { ...item.volumeInfo, id: item.id };
+            return {
+                ...item.volumeInfo,
+                id: item.id,
+                selfLink: item.selfLink,
+            };
         });
     };
 
+    // callback event to sync search string state and
+    // the input.value
     const handleSearchChange = (event) => {
         setSearch(event.target.value);
     };
 
+    // callback event to call fetchBookList when the user
+    // clicks enter
+    // first it initialises 12 books.
+    // then awaits the results of the search
     const handleSearchSubmit = async (event) => {
         event.preventDefault();
         setBookList(Array(12).fill(null));
@@ -30,23 +42,13 @@ function App() {
     };
 
     return (
-        <div>
-            <h1>My Reading List</h1>
-            <p>
-                Add books to your wishlist and review books on your
-                bookshelf.
-            </p>
-            <form onSubmit={handleSearchSubmit}>
-                <label htmlFor="search">
-                    Search Books
-                    <input
-                        type="text"
-                        onChange={handleSearchChange}
-                        value={search}
-                    />
-                </label>
-                <input type="submit" />
-            </form>
+        <div className={Styles.App}>
+            <h1>Search</h1>
+
+            <Search
+                handleSearchChange={handleSearchChange}
+                handleSearchSubmit={handleSearchSubmit}
+            />
 
             <SearchResults>
                 {bookList.map((book, index) => {

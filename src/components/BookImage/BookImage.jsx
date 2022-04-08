@@ -1,33 +1,45 @@
-import React from 'react';
 import { useState } from 'react';
 import { PlaceholderImage } from '../Placeholders';
 import placeImage from '../../book-placeholder.png';
 
 const BookImage = (props) => {
-    const [imgStyle, setImgStyle] = useState({ display: 'none' });
-
-    const [placeStyle, setPlaceStyle] = useState({
-        display: 'block',
+    const [imageStyles, setImageStyles] = useState({
+        placeStyle: {
+            display: 'block',
+            minWidth: '100px',
+        },
+        imgStyle: { display: 'none' },
     });
 
-    const imageLoads = () => {
-        setImgStyle({ display: 'block' });
-        setPlaceStyle({ display: 'none' });
+    const handleImageLoaded = () => {
+        setImageStyles({
+            placeStyle: { display: 'none' },
+            imgStyle: { display: 'block' },
+        });
     };
 
-    if (props?.book?.imageLinks == null) {
-        return <img src={placeImage} alt="" />;
-    } else {
+    // assume image exists first so we will display the
+    // loading placeholder.
+    // when fetched and image loads, replace the placeholder
+    // with the actual image.
+    if (props.book?.imageLinks?.thumbnail != null) {
         return (
             <>
+                <PlaceholderImage style={imageStyles.placeStyle} />
                 <img
                     src={props.book.imageLinks.thumbnail}
-                    alt={props.book.title}
-                    onLoad={imageLoads}
-                    style={imgStyle}
+                    alt={props?.book?.title ?? 'Book Image'}
+                    style={imageStyles.imgStyle}
+                    onLoad={handleImageLoaded}
                 />
-                <PlaceholderImage style={placeStyle} />
             </>
+        );
+    } else {
+        return (
+            <img
+                src={placeImage}
+                alt={props?.book?.title ?? 'Book Image'}
+            />
         );
     }
 };
