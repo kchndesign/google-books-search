@@ -1,5 +1,7 @@
 .BookBox {
     background-color: aquamarine;
-    width: 20rem;
-    height: 20rem;
+
+    & > img {
+        height: 20rem;
+    }
 }
