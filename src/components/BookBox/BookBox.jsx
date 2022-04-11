@@ -53,26 +53,30 @@ const BookBox = (props) => {
         );
     } else {
         return (
-            <div className={Styles.BookBox} key={props.book.id}>
-                <div className={Styles.BookBox__headerContainer}>
-                    <div className={Styles.BookBox__imageContainer}>
-                        {props.children}
-                    </div>
-                    <div className={Styles.BookBox__titleContainer}>
-                        <h3 className={Styles.BookBox__title}>
-                            {props.book.title}
-                        </h3>
-                        <p className={Styles.BookBox__authors}>
-                            {authors}
-                        </p>
-                        <p className={Styles.BookBox__subtitle}>
-                            {props.book.subtitle}
-                        </p>
+            <div
+                className={`${Styles.BookBox} ${Styles.BookBox__headerContainer}`}
+                key={props.book.id}
+                onClick={() => {
+                    props.modalMount(props.book);
+                }}
+            >
+                <div className={Styles.BookBox__imageContainer}>
+                    {props.children}
+                </div>
+                <div className={Styles.BookBox__titleContainer}>
+                    <h3 className={Styles.BookBox__title}>
+                        {props.book.title}
+                    </h3>
+                    <p className={Styles.BookBox__authors}>
+                        {authors}
+                    </p>
+                    <p className={Styles.BookBox__subtitle}>
+                        {props.book.subtitle}
+                    </p>
 
-                        <p className={Styles.BookBox__desc}>
-                            {description}
-                        </p>
-                    </div>
+                    <p className={Styles.BookBox__desc}>
+                        {description}
+                    </p>
                 </div>
             </div>
         );

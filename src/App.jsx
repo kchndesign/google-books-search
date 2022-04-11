@@ -5,10 +5,12 @@ import SearchResults from './components/SearchResults';
 import BookImage from './components/BookImage';
 import Search from './components/Search';
 import Header from './components/Header';
+import BookModal from './components/BookModal/';
 
 function App() {
     const [search, setSearch] = useState('');
     const [bookList, setBookList] = useState([]);
+    const [currentModalBook, setCurrentModalBook] = useState(null);
 
     // function for searching with a string for query parameter
     const fetchBookList = async (query) => {
@@ -42,6 +44,15 @@ function App() {
         setBookList(await fetchBookList(search));
     };
 
+    // handler to display modal
+    const modalMount = (book) => {
+        setCurrentModalBook(book);
+    };
+
+    const modalUnmount = () => {
+        setCurrentModalBook(null);
+    };
+
     return (
         <div className={Styles.App}>
             <Header />
@@ -54,12 +65,22 @@ function App() {
             <SearchResults>
                 {bookList.map((book, index) => {
                     return (
-                        <BookBox book={book} key={book?.id ?? index}>
+                        <BookBox
+                            book={book}
+                            key={book?.id ?? index}
+                            modalMount={modalMount}
+                        >
                             <BookImage book={book} />
                         </BookBox>
                     );
                 })}
             </SearchResults>
+            {currentModalBook == null ? null : (
+                <BookModal
+                    book={currentModalBook}
+                    modalUnmount={modalUnmount}
+                />
+            )}
         </div>
     );
 }
