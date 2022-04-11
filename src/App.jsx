@@ -4,6 +4,7 @@ import { useState } from 'react';
 import SearchResults from './components/SearchResults';
 import BookImage from './components/BookImage';
 import Search from './components/Search';
+import Header from './components/Header';
 
 function App() {
     const [search, setSearch] = useState('');
@@ -43,7 +44,7 @@ function App() {
 
     return (
         <div className={Styles.App}>
-            <h1>Search</h1>
+            <Header />
 
             <Search
                 handleSearchChange={handleSearchChange}
