@@ -3,7 +3,6 @@ import Styles from './BookModal.module.scss';
 import ExitIcon from '../../exit-icon.svg';
 
 export const BookModal = (props) => {
-    console.log(props.book);
     return (
         <>
             <div

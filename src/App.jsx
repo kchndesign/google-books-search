@@ -49,6 +49,7 @@ function App() {
         setCurrentModalBook(book);
     };
 
+    // handler to hide the modal
     const modalUnmount = () => {
         setCurrentModalBook(null);
     };
